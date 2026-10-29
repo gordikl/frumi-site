@@ -7,45 +7,6 @@
 <title>FRUMI — фруктова пастила</title>
 <meta name="description" content="FRUMI — фруктова пастила. П'ять смаків та асорті, пакування 100 і 200 грамів.">
 
-/* FRUMI — фотографії на всю ширину карток */
-.cardTop {
-  width: 100%;
-  height: 290px;
-  padding: 0;
-  overflow: hidden;
-  display: block;
-}
-
-.cardTop img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-}
-
-@media (max-width: 520px) {
-  .cardTop {
-    height: 260px;
-  }
-}
-
-/* FRUMI — заповнення карток фотографіями */
-.cardTop {
-  height: 290px !important;
-  padding: 0 !important;
-  overflow: hidden;
-  display: block !important;
-}
-
-.cardTop img {
-  width: 100%;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center;
-  display: block;
-}
 <style>
 :root{--dark:#38452e;--wine:#812c41;--cream:#faf4e9;--peach:#edb99f}
 *{box-sizing:border-box}
@@ -68,13 +29,9 @@ h2{font-family:Georgia,serif;font-size:clamp(29px,4vw,45px);text-align:center;co
 .intro{text-align:center;color:#78695f;margin-bottom:35px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .card{border-radius:22px;background:white;overflow:hidden;box-shadow:0 8px 25px #3f2a2010}
-.cardTop{height:260px;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white;text-align:center;padding:15px}
-.
-.cardTop img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+/* FRUMI product photographs: full image visible, no cropping */
+.cardTop{width:100%;height:auto;overflow:hidden;display:block;padding:0;line-height:0}
+.cardTop img{display:block;width:100%;height:auto;max-width:100%}
 .cardBody{padding:22px}
 .card h3{font-size:19px;margin:0 0 8px}
 .card p{font-size:13px;color:#78695f;min-height:34px}
@@ -94,19 +51,8 @@ footer{background:var(--dark);color:white;text-align:center;padding:45px 20px}
 footer a{color:#fff1d9}
 #status{font-weight:bold;white-space:pre-wrap}
 @media(max-width:800px){.hero{grid-template-columns:1fr;padding:25px 5%}.hero img{max-height:none}.grid{grid-template-columns:repeat(2,1fr)}nav a{margin-left:9px;font-size:12px}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.hero h1{font-size:43px}.cardTop{height:135px}.logo{font-size:22px}.hero{gap:20px}header{padding:15px}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero h1{font-size:43px}.cardTop{height:auto}.logo{font-size:22px}.hero{gap:20px}header{padding:15px}}
 
-.cardTop {
-  height: 260px;
-  padding: 0;
-  overflow: hidden;
-}
-
-.cardTop img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 </style>
 </head>
 <body>

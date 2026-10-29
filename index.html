@@ -6,6 +6,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FRUMI — фруктова пастила</title>
 <meta name="description" content="FRUMI — фруктова пастила. П'ять смаків та асорті, пакування 100 і 200 грамів.">
+
+/* FRUMI — фотографії на всю ширину карток */
+.cardTop {
+  width: 100%;
+  height: 290px;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+}
+
+.cardTop img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 520px) {
+  .cardTop {
+    height: 260px;
+  }
+}
 <style>
 :root{--dark:#38452e;--wine:#812c41;--cream:#faf4e9;--peach:#edb99f}
 *{box-sizing:border-box}

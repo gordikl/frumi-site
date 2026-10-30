@@ -49,10 +49,27 @@ textarea{min-height:75px}
 .notice{font-size:12px;color:#766a5f;line-height:1.5}
 footer{background:var(--dark);color:white;text-align:center;padding:45px 20px}
 footer a{color:#fff1d9}
-#status{font-weight:bold;white-space:pre-wrap}
+#status{font-weight:normal;white-space:normal;line-height:1.55;margin:6px 0 0}
+#status.order-notice{background:#f2f6e9;border:1px solid #bacba9;border-left:5px solid #627944;color:#2f442d;padding:18px;border-radius:14px}
+#status.order-notice strong{display:block;font-size:18px;margin-bottom:8px}
+#status.order-notice a{color:#812c41;font-weight:700;text-underline-offset:3px}
+#status.order-error{color:#8f2737;font-weight:700}
 @media(max-width:800px){.hero{grid-template-columns:1fr;padding:25px 5%}.hero img{max-height:none}.grid{grid-template-columns:repeat(2,1fr)}nav a{margin-left:9px;font-size:12px}}
 @media(max-width:520px){.grid{grid-template-columns:1fr}.hero h1{font-size:43px}.cardTop{height:auto}.logo{font-size:22px}.hero{gap:20px}header{padding:15px}}
 
+
+/* FRUMI — переваги натуральної пастили */
+.natural-section{padding-top:36px!important}
+.natural-wrap{background:linear-gradient(135deg,#f3ead9 0%,#f9f3e9 60%,#f0e4d1 100%);border:1px solid #e7d8bf;border-radius:28px;padding:48px 42px;box-shadow:0 12px 32px #4b35200a}
+.natural-wrap h2{margin:12px 0 14px}
+.natural-lead{text-align:center;color:#6d5a4c;max-width:740px;margin:0 auto 32px;line-height:1.75;font-size:17px}
+.natural-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.natural-item{background:#fffdf9;border-radius:20px;padding:24px 18px;text-align:center;border:1px solid #eadfce}
+.natural-icon{display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;margin:0 auto 14px;background:#eff1e6;color:#52693d;font-size:25px}
+.natural-item h3{font-size:18px;color:#3b4931;margin:0 0 9px}
+.natural-item p{font-size:13px;line-height:1.65;color:#76695b;margin:0}
+@media(max-width:850px){.natural-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.natural-wrap{padding:32px 18px}.natural-grid{grid-template-columns:1fr}.natural-lead{font-size:15px}.natural-item{padding:18px}}
 </style>
 </head>
 <body>
@@ -79,6 +96,21 @@ footer a{color:#fff1d9}
 <h2>Шість фруктових історій</h2>
 <p class="intro">100 г — 150 грн · 200 г — 280 грн</p>
 <div class="grid" id="products"></div>
+</section>
+
+
+<section class="content natural-section" id="natural">
+<div class="natural-wrap">
+<div class="eyebrow" style="text-align:center">ПРОСТО ФРУКТИ. НІЧОГО ЗАЙВОГО.</div>
+<h2>Натуральний смак у кожному шматочку</h2>
+<p class="natural-lead">Ми любимо справжній смак фруктів. Тому FRUMI — це фруктова пастила з яскравими поєднаннями, без доданого цукру та зайвих добавок. Смачно, просто й по-фруктовому!</p>
+<div class="natural-grid">
+<div class="natural-item"><div class="natural-icon" aria-hidden="true">✿</div><h3>Натуральні фрукти</h3><p>Яблука, банани та соковиті фруктові поєднання — основа кожного смаку.</p></div>
+<div class="natural-item"><div class="natural-icon" aria-hidden="true">♡</div><h3>Без доданого цукру</h3><p>Фруктова солодкість без додавання цукру.</p></div>
+<div class="natural-item"><div class="natural-icon" aria-hidden="true">✓</div><h3>Без зайвих добавок</h3><p>Без штучних барвників, ароматизаторів і консервантів.</p></div>
+<div class="natural-item"><div class="natural-icon" aria-hidden="true">☀</div><h3>Свіжість і турбота</h3><p>Готуємо з увагою до смаку та якості кожної партії.</p></div>
+</div>
+</div>
 </section>
 
 <section class="content" id="about">
@@ -180,7 +212,7 @@ e.preventDefault();
 if(sending)return;
 const items=cartEntries().map(({name,weight,quantity})=>({name,weight,quantity}));
 const status=document.getElementById("status");
-if(!items.length){status.textContent="Спочатку додайте пастилу в кошик.";return;}
+if(!items.length){status.className="order-error";status.textContent="Спочатку додайте пастилу в кошик.";return;}
 const f=new FormData(e.target);
 if(f.get("website"))return;
 const order={
@@ -192,6 +224,7 @@ items
 };
 sending=true;
 document.getElementById("submitBtn").disabled=true;
+status.className="";
 status.textContent="Передаємо замовлення...";
 try{
 await fetch(API,{
@@ -200,8 +233,10 @@ mode:"no-cors",
 headers:{"Content-Type":"text/plain;charset=utf-8"},
 body:JSON.stringify(order)
 });
-status.textContent="Запит відправлено на обробку, але отримання замовлення ще не підтверджене. Продавець має перевірити Telegram. Не надсилайте повторно, поки не уточните статус.";
+status.className="order-notice";
+status.innerHTML=`<strong>✓ Дякуємо! Запит на замовлення надіслано.</strong>Ми передали дані для обробки. Остаточне отримання замовлення продавцем сайт поки не може підтвердити.<br><br>Якщо потрібно уточнити статус, напишіть у <a href="https://t.me/FRUMI_Order_Bot" target="_blank" rel="noopener noreferrer">Telegram FRUMI</a>. Будь ласка, не надсилайте повторне замовлення до уточнення.`;
 }catch(err){
+status.className="order-error";
 status.textContent="Не вдалося відправити запит. Спробуйте пізніше або зв'яжіться з продавцем у Telegram.";
 }finally{
 sending=false;
